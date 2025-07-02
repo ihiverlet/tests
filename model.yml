@@ -1,0 +1,19 @@
+cubes:
+  - name: demo
+    sql: SELECT * FROM 's3://donnees-insee/diffusion/RP/2017/logement/logement.parquet'
+    public: false
+
+    measures:
+      - name: count
+        type: count
+
+    dimensions:
+      - name: commune
+        primary_key: true
+        sql: commune
+        type: string
+
+      - name: bati
+        sql: bati
+        type: string
+
