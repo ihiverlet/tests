@@ -1,0 +1,19 @@
+cubes:
+  - name: rp
+    sql: SELECT * FROM 's3://donnees-insee/diffusion/RP/2017/individu_reg/individu_reg.parquet'
+    public: false
+
+    measures:
+      - name: count
+        type: count
+
+    dimensions:
+      - name: region
+        primary_key: true
+        sql: region
+        type: string
+
+      - name: prof
+        sql: prof
+        type: string
+
