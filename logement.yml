@@ -1,0 +1,38 @@
+cubes:
+  - name: test_base
+    sql: SELECT * FROM 's3://donnees-insee/diffusion/RP/2017/logement/logement.parquet'
+    public: false
+
+    dimensions:
+      - name: iris
+        primary_key: true
+        sql: iris
+        type: string
+
+      - name: commune
+        sql: commune
+        type: string
+
+      - name: bati
+        sql: bati
+        type: string
+
+      - name: ipondl
+        sql: ipondl
+        type: number
+
+  - name: test2
+    extends: test_base
+
+    joins:
+      - name: geo
+        relationship: belongsTo
+        sql: "{test2}.iris = {geo}.c_iris"
+
+    measures:
+      - name: count
+        type: count
+
+      - name: sum_ipondl
+        type: sum
+        sql: ipondl
