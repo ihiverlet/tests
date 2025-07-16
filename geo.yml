@@ -1,0 +1,34 @@
+cubes:
+  - name: geo
+    sql: SELECT * FROM 's3://inesh/geo.parquet'
+    public: false
+
+    dimensions: 
+      - name: c_iris
+        primary_key: true
+        sql: c_iris
+        type: string
+      - name: c_commune
+        sql: c_commune
+        type: string
+      - name: departement
+        sql: c_departement
+        type: string
+      
+    hierarchies:
+      - name: geographie
+        title: geographie
+        levels:
+          - departement
+          - c_commune
+          - c_iris
+
+    measures:
+      - name: count
+        type: count
+        # Here we define all possible properties we might want
+        # to "drill down" on from our front-end
+        drill_members:
+          - departement
+          - c_commune
+          - c_iris
